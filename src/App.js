@@ -72,7 +72,7 @@ function App() {
 
   return (
     <main>
-      <h1 className={(balance > 0 ? 'green' : 'red')}>${balance.toFixed(2)}</h1>
+      <h1 className={(balance > 0 ? 'green' : 'red')}>{balance < 0 ? `-$${Math.abs(balance).toFixed(2)}` : `$${balance.toFixed(2)}`}</h1>
       
       <form onSubmit={addNewTransaction}>
         <div className='basic'>
@@ -122,7 +122,7 @@ function App() {
                 </div>
                 <div className='right'>
                   <div className={'price ' + (transaction.price > 0 ? 'green' : 'red')}>
-                    {transaction.price}
+                  {transaction.price < 0 ? `-$${Math.abs(transaction.price).toFixed(2)}` : `+$${transaction.price.toFixed(2)}`}
                   </div>
                   
                   <button onClick={() => deleteTransaction(transaction._id)}>REMOVE</button>

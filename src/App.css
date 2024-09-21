@@ -55,13 +55,14 @@ button[type="submit"] {
   border: none;
   font-size: 1rem;
   background-color: #438297;
-  color: #fff;
+  color: #e5e5e5;
+  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 button[type="submit"]:hover {
-  background-color: #0095e5;
+  background-color: #6298b5;
 }
 
 /* Transaction List */
