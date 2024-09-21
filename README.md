@@ -29,8 +29,7 @@
 
 ## 📸 Video Demo
 
-1. **Home Page**  
-   ![Video Demo](https://drive.google.com/file/d/1Tre_kPX0kbt5yRACfBjkgvZwG2a8HRGN/view?usp=sharing)
+![Link to Video](https://drive.google.com/file/d/1Tre_kPX0kbt5yRACfBjkgvZwG2a8HRGN/view?usp=sharing)
 
 ## ⚙️ Getting Started
 
