@@ -1,4 +1,4 @@
-# 💰 Transaction Tracker
+# 💰 Budget Tracker
 
 **Transaction Tracker** is a simple, intuitive application to track personal transactions and expenses. With this app, you can keep a running balance of your financial activity, add transactions with positive or negative values (income or expenses), and see your history organized by date.
 
