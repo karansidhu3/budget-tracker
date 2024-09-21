@@ -118,13 +118,14 @@ function App() {
               <div className='transaction'>
                 <div className='left'>
                   <div className='name'>{transaction.name}</div>
+                  <div className='datetime'>{new Date(transaction.datetime).toLocaleString()}</div>
                 </div>
                 <div className='right'>
                   <div className={'price ' + (transaction.price > 0 ? 'green' : 'red')}>
                     {transaction.price}
                   </div>
-                  <div className='datetime'>{new Date(transaction.datetime).toLocaleString()}</div>
-                  <button onClick={() => deleteTransaction(transaction._id)}>Delete</button>
+                  
+                  <button onClick={() => deleteTransaction(transaction._id)}>REMOVE</button>
                 </div>
               </div>
             </div>

@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: Inter, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 body {
@@ -28,13 +28,7 @@ main {
 h1 {
   font-size: 3rem;
   text-align: center;
-  color: #00c851;
   margin-bottom: 40px;
-}
-
-h1 span {
-  font-size: 1.5rem;
-  opacity: 0.8;
 }
 
 /* Transaction Form */
@@ -49,7 +43,7 @@ form {
   border-radius: 8px;
   border: none;
   margin-bottom: 20px;
-  font-size: 1rem;
+  font-size: 0.8rem;
   color: #fff;
   background-color: #2c2c2e;
 }
@@ -60,7 +54,7 @@ button[type="submit"] {
   border-radius: 8px;
   border: none;
   font-size: 1rem;
-  background-color: #00a6ff;
+  background-color: #438297;
   color: #fff;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -94,6 +88,7 @@ button[type="submit"]:hover {
 .transaction .left {
   display: flex;
   flex-direction: column;
+  gap: 5px;
 }
 
 .transaction .name {
@@ -102,7 +97,7 @@ button[type="submit"]:hover {
   color: #f5f5f7;
 }
 
-.transaction .description {
+.transaction  {
   font-size: 0.875rem;
   color: #a9a9a9;
   margin-top: 4px;
@@ -143,4 +138,10 @@ button[type="submit"]:hover {
 
 .transaction button:hover {
   color: #ff1e1e;
+}
+
+.right button{
+  font-size: 10px;
+  color: #737377;
+  padding-bottom: 2px;
 }
