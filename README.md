@@ -2,7 +2,7 @@
 
 **Transaction Tracker** is a simple, intuitive application to track personal transactions and expenses. With this app, you can keep a running balance of your financial activity, add transactions with positive or negative values (income or expenses), and see your history organized by date.
 
-![App Preview](https://your-image-url-here.com) <!-- Insert image link if you have any screenshots -->
+[Link to Video Demo](https://drive.google.com/file/d/1Tre_kPX0kbt5yRACfBjkgvZwG2a8HRGN/view?usp=sharing)
 
 ## 🚀 Features
 
@@ -25,11 +25,6 @@
 2. Delete transactions by clicking the "Delete" button next to any entry.
 3. The balance at the top updates dynamically based on the transactions entered.
 4. Transactions are sorted by date, and a gap separates transactions from different months.
-
-
-## 📸 Video Demo
-
-![Link to Video](https://drive.google.com/file/d/1Tre_kPX0kbt5yRACfBjkgvZwG2a8HRGN/view?usp=sharing)
 
 ## ⚙️ Getting Started
 
