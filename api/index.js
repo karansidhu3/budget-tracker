@@ -39,7 +39,7 @@ app.get('/api/transactions', async(req,res) => {
       ...transaction._doc,
       datetime: new Date(transaction.datetime).toLocaleString() // format datetime
     }));
-    res.json(formattedTransactions);
+    res.json(transactions);
 
   } catch (error) {
     console.error('Error fetching transactions:', error);

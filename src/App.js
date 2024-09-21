@@ -4,12 +4,13 @@ import './App.css';
 function App() {
   const [name, setName] = useState('');
   const [datetime, setDateTime] = useState('');
-  const [description, setDescription] = useState('');
+  const [amount, setAmount] = useState(''); // State for amount
   const [transactions, setTransactions] = useState([]);
-  const [balance, setBalance] = useState(0); // New state to store balance
+  const [balance, setBalance] = useState(0);
 
   useEffect(() => {
     getTransactions().then(transactions => {
+      // Sort transactions by datetime here
       setTransactions(transactions);
       calculateBalance(transactions); // Calculate balance when transactions are fetched
     });
@@ -18,33 +19,34 @@ function App() {
   async function getTransactions() {
     const url = process.env.REACT_APP_API_URL + '/transactions';
     const response = await fetch(url);
-    return await response.json();
+    const temptrans = await response.json();
+
+    temptrans.sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
+    return temptrans
   }
+  
 
   async function addNewTransaction(ev) {
     ev.preventDefault();
     const url = process.env.REACT_APP_API_URL + '/transaction';
-    const price = name.split(' ')[0];
 
     const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
       body: JSON.stringify({
-        price,
-        name: name.substring(price.length + 1),
-        description,
+        price: parseFloat(amount), // Ensure amount is a float for cents
+        name,
         datetime
       })
     });
 
     setName('');
     setDateTime('');
-    setDescription('');
+    setAmount(''); // Clear the amount input
 
-    // Refresh the transaction list
     getTransactions().then(transactions => {
       setTransactions(transactions);
-      calculateBalance(transactions); // Update balance when new transaction is added
+      calculateBalance(transactions);
     });
   }
 
@@ -54,23 +56,23 @@ function App() {
       method: 'DELETE',
     });
 
-    // Refresh the transaction list after deletion
     getTransactions().then(transactions => {
       setTransactions(transactions);
-      calculateBalance(transactions); // Update balance when a transaction is deleted
+      calculateBalance(transactions);
     });
   }
 
-  // Calculate the balance based on all transactions
   function calculateBalance(transactions) {
     const totalBalance = transactions.reduce((acc, transaction) => acc + transaction.price, 0);
     setBalance(totalBalance);
   }
 
+  let lastMonthYear = '';
+
+
   return (
     <main>
-      {/* Display the real-time balance */}
-      <h1>${balance}<span>.00</span></h1> 
+      <h1 className={(balance > 0 ? 'green' : 'red')}>${balance.toFixed(2)}</h1>
       
       <form onSubmit={addNewTransaction}>
         <div className='basic'>
@@ -78,7 +80,14 @@ function App() {
             type="text"
             value={name}
             onChange={ev => setName(ev.target.value)}
-            placeholder={'+200 new samsung tv'}
+            placeholder={'Transaction Name'}
+          />
+          <input
+            type="number" 
+            step="0.01" // Allow for cents input
+            value={amount}
+            onChange={ev => setAmount(ev.target.value)}
+            placeholder={'Amount'}
           />
           <input
             type="datetime-local"
@@ -87,44 +96,40 @@ function App() {
           />
         </div>
 
-        <div className='description'>
-          <input
-            type="text"
-            placeholder={'description'}
-            value={description}
-            onChange={ev => setDescription(ev.target.value)}
-          />
-        </div>
-
-        <button type='submit'>Add new transaction</button>
+        <button type='submit'>Add Transaction</button>
       </form>
 
       <div className='transactions'>
-        {transactions.map(transaction => (
-          <div className='transaction' key={transaction._id}>
+        {transactions.map(transaction => {
+          const date = new Date(transaction.datetime);
+          const monthYear = date.toLocaleString('default', { month: 'long', year: 'numeric' });
 
-            <div className='left'>
-              <div className='name'>
-                {transaction.name}
-              </div>
-              <div className='description'>
-                {transaction.description}
+          const renderGap = lastMonthYear !== monthYear;
+          lastMonthYear = monthYear; // Update the lastMonthYear variable
+
+          return (
+            <div key={transaction._id}>
+              {renderGap && (
+                <>
+                  <h2>{monthYear}</h2> {/* Month and Year Header */}
+                  <div style={{ margin: '10px 0' }} /> {/* Gap */}
+                </>
+              )}
+              <div className='transaction'>
+                <div className='left'>
+                  <div className='name'>{transaction.name}</div>
+                </div>
+                <div className='right'>
+                  <div className={'price ' + (transaction.price > 0 ? 'green' : 'red')}>
+                    {transaction.price}
+                  </div>
+                  <div className='datetime'>{new Date(transaction.datetime).toLocaleString()}</div>
+                  <button onClick={() => deleteTransaction(transaction._id)}>Delete</button>
+                </div>
               </div>
             </div>
-
-            <div className='right'>
-              <div className={'price ' + (transaction.price > 0 ? 'green' : 'red')}>
-                {transaction.price}
-              </div>
-              <div className='datetime'>
-                {transaction.datetime}
-              </div>
-              {/* Delete button */}
-              <button onClick={() => deleteTransaction(transaction._id)}>Delete</button>
-            </div>
-            
-          </div>
-        ))}
+          );
+        })}
       </div>
     </main>
   );
