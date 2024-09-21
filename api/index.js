@@ -17,19 +17,36 @@ app.post('/api/transaction', async(req,res) => {
   await mongoose.connect(process.env.MONGO_URL);
   // get info out of req post body
   const {price, name, description, datetime} = req.body;
-  // use transaction model to format info
-  const transaction = await Transaction.create({price, name, description, datetime});
-  // post data
-  res.json(transaction);
+  try {
+    // use transaction model to format info
+    const transaction = await Transaction.create({ price, name, description, datetime });
+    // send created transaction back as response
+    res.json(transaction);
+  } catch (error) {
+    console.error('Error creating transaction:', error);
+    res.status(500).json({ error: 'Failed to create transaction' });
+  }
 })
 
 app.get('/api/transactions', async(req,res) => {
   // connect to db
   await mongoose.connect(process.env.MONGO_URL);
-  // get all records in db
-  const transactions = await Transaction.find();
-  // give data back to user
-  res.json(transactions);
+  try {
+    // get all records in db
+    const transactions = await Transaction.find();
+    // give data back to user
+    const formattedTransactions = transactions.map(transaction => ({
+      ...transaction._doc,
+      datetime: new Date(transaction.datetime).toLocaleString() // format datetime
+    }));
+    res.json(formattedTransactions);
+    
+  } catch (error) {
+    console.error('Error fetching transactions:', error);
+    res.status(500).json({ error: 'Failed to fetch transactions' });
+  }
 });
 
-app.listen(4040);
+app.listen(4040, () => {
+  console.log('Server is running on port 4040...');
+});
