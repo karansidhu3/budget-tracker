@@ -40,12 +40,26 @@ app.get('/api/transactions', async(req,res) => {
       datetime: new Date(transaction.datetime).toLocaleString() // format datetime
     }));
     res.json(formattedTransactions);
-    
+
   } catch (error) {
     console.error('Error fetching transactions:', error);
     res.status(500).json({ error: 'Failed to fetch transactions' });
   }
 });
+
+// Delete a transaction by ID
+app.delete('/api/transaction/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    // Find transaction by ID and delete
+    await Transaction.findByIdAndDelete(id);
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error deleting transaction:', error);
+    res.status(500).json({ error: 'Failed to delete transaction' });
+  }
+});
+
 
 app.listen(4040, () => {
   console.log('Server is running on port 4040...');
