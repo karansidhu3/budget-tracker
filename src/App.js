@@ -6,10 +6,12 @@ function App() {
   const [datetime, setDateTime] = useState('');
   const [description, setDescription] = useState('');
   const [transactions, setTransactions] = useState([]);
+  const [balance, setBalance] = useState(0); // New state to store balance
 
   useEffect(() => {
     getTransactions().then(transactions => {
       setTransactions(transactions);
+      calculateBalance(transactions); // Calculate balance when transactions are fetched
     });
   }, []);
 
@@ -42,6 +44,7 @@ function App() {
     // Refresh the transaction list
     getTransactions().then(transactions => {
       setTransactions(transactions);
+      calculateBalance(transactions); // Update balance when new transaction is added
     });
   }
 
@@ -54,12 +57,21 @@ function App() {
     // Refresh the transaction list after deletion
     getTransactions().then(transactions => {
       setTransactions(transactions);
+      calculateBalance(transactions); // Update balance when a transaction is deleted
     });
+  }
+
+  // Calculate the balance based on all transactions
+  function calculateBalance(transactions) {
+    const totalBalance = transactions.reduce((acc, transaction) => acc + transaction.price, 0);
+    setBalance(totalBalance);
   }
 
   return (
     <main>
-      <h1>$400<span>.00</span></h1>
+      {/* Display the real-time balance */}
+      <h1>${balance}<span>.00</span></h1> 
+      
       <form onSubmit={addNewTransaction}>
         <div className='basic'>
           <input
