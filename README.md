@@ -27,13 +27,10 @@
 4. Transactions are sorted by date, and a gap separates transactions from different months.
 
 
-## 📸 Screenshots
+## 📸 Video Demo
 
 1. **Home Page**  
-   ![Home Page](https://your-image-url-here.com)
-
-2. **Adding a Transaction**  
-   ![Adding a Transaction](https://your-image-url-here.com)
+   ![Video Demo](https://drive.google.com/file/d/1Tre_kPX0kbt5yRACfBjkgvZwG2a8HRGN/view?usp=sharing)
 
 ## ⚙️ Getting Started
 
