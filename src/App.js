@@ -7,6 +7,7 @@ function App() {
   const [amount, setAmount] = useState(''); // State for amount
   const [transactions, setTransactions] = useState([]);
   const [balance, setBalance] = useState(0);
+  let lastMonthYear = '';
 
   useEffect(() => {
     getTransactions().then(transactions => {
@@ -25,7 +26,6 @@ function App() {
     return temptrans
   }
   
-
   async function addNewTransaction(ev) {
     ev.preventDefault();
     const url = process.env.REACT_APP_API_URL + '/transaction';
@@ -66,9 +66,6 @@ function App() {
     const totalBalance = transactions.reduce((acc, transaction) => acc + transaction.price, 0);
     setBalance(totalBalance);
   }
-
-  let lastMonthYear = '';
-
 
   return (
     <main>
