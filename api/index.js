@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/api/test', (req, res) => {
-  res.json('test ok2');
+  res.json('test ok');
 });
 
 app.post('/api/transaction', async(req,res) => {
@@ -59,7 +59,6 @@ app.delete('/api/transaction/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to delete transaction' });
   }
 });
-
 
 app.listen(4040, () => {
   console.log('Server is running on port 4040...');
